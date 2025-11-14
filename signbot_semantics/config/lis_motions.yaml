@@ -1,0 +1,68 @@
+# -------------------------------------------------------------------
+# LIS MOTIONS: 50 Segni per Tiago (Utile per LLM Prompt Vincoli)
+# Questi nomi sono le CHIAVI che il tuo LLM deve usare
+# -------------------------------------------------------------------
+motions:
+  # SALUTI & CORTESIA (8)
+  "Ciao": { file: 'saluto_ciao.yaml' }
+  "Buongiorno": { file: 'saluto_mattina.yaml' }
+  "Grazie": { file: 'cortesia_grazie.yaml' }
+  "Prego": { file: 'cortesia_prego.yaml' }
+  "Scusa": { file: 'cortesia_scusa.yaml' }
+  "Aiuto": { file: 'help_me.yaml' }
+  "Bene": { file: 'stato_bene.yaml' }
+  "Male": { file: 'stato_male.yaml' }
+
+  # IDENTIFICAZIONE & PERSONE (8)
+  "Io": { file: 'rif_io.yaml' }
+  "Tu": { file: 'rif_tu.yaml' }
+  "Nome": { file: 'rif_nome.yaml' }
+  "Cognome": { file: 'rif_cognome.yaml' }
+  "Chi": { file: 'domanda_chi.yaml' }
+  "Signore": { file: 'titolo_signore.yaml' }
+  "Signora": { file: 'titolo_signora.yaml' }
+  "Paziente": { file: 'ruolo_paziente.yaml' }
+
+  # OSPEDALE & LUOGHI (9)
+  "Ospedale": { file: 'luogo_ospedale.yaml' }
+  "Dottore": { file: 'ruolo_dottore.yaml' }
+  "Ufficio": { file: 'luogo_ufficio.yaml' }
+  "Stanza": { file: 'luogo_stanza.yaml' }
+  "Piano": { file: 'luogo_piano.yaml' }
+  "Segreteria": { file: 'luogo_segreteria.yaml' }
+  "Registrazione": { file: 'azione_registrazione.yaml' }
+  "Bagno": { file: 'luogo_bagno.yaml' }
+  "Uscita": { file: 'luogo_uscita.yaml' }
+
+  # TEMPO & NUMERI (7)
+  "Appuntamento": { file: 'info_appuntamento.yaml' }
+  "Ora": { file: 'info_ora.yaml' }
+  "Minuto": { file: 'info_minuto.yaml' }
+  "Oggi": { file: 'tempo_oggi.yaml' }
+  "Domani": { file: 'tempo_domani.yaml' }
+  "Dieci": { file: 'num_dieci.yaml' }
+  "Undici": { file: 'num_undici.yaml' }
+
+  # AZIONE & DIREZIONE (8)
+  "Vai": { file: 'azione_vai.yaml' }
+  "Vieni": { file: 'azione_vieni.yaml' }
+  "Aspetta": { file: 'azione_aspetta.yaml' }
+  "Siedi": { file: 'azione_siedi.yaml' }
+  "Segui": { file: 'azione_segui.yaml' }
+  "Fermo": { file: 'azione_fermo.yaml' }
+  "Trova": { file: 'azione_trova.yaml' }
+  "Fatto": { file: 'azione_fatto.yaml' }
+
+  # INFORMAZIONI & RISPOSTA (6)
+  "Si": { file: 'risposta_si.yaml' }
+  "No": { file: 'risposta_no.yaml' }
+  "Capito": { file: 'comprensione_capito.yaml' }
+  "NonCapito": { file: 'comprensione_noncapito.yaml' }
+  "Chiedere": { file: 'azione_chiedere.yaml' }
+  "Informazione": { file: 'info_generica.yaml' }
+
+  # PERSONALIZZAZIONE & NOMI (4)
+  "Mario": { file: 'nome_mario.yaml' }
+  "Anna": { file: 'nome_anna.yaml' }
+  "Calmo": { file: 'emozione_calmo.yaml' }
+  "Ansioso": { file: 'emozione_ansioso.yaml' }

@@ -1,0 +1,11 @@
+# ComposeLIS.srv
+
+# INPUT:
+bool is_known              # Flag: True se conosciuto, False altrimenti.
+string patient_data_json   # Dati variabili (nome, espressione, appuntamento, etc.)
+
+---
+
+# OUTPUT:
+string lis_phrase          # Frase LIS generata dall'LLM (es. "Ciao|Mario|Appuntamento")
+bool success

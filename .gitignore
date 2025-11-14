@@ -1,0 +1,37 @@
+# ==================================
+# ROS / CATKIN IGNORE
+# ==================================
+
+# Cartelle di Compilazione e Log di ROS/Catkin
+build/
+devel/
+log/
+.catkin_tools/
+.ros/
+
+# File di configurazione generati
+*.cmake
+CMakeFiles/
+
+# ==================================
+# PYTHON / IDE IGNORE
+# ==================================
+
+# Bytecode Python
+*.pyc
+__pycache__/
+
+# Variabili d'ambiente locali sensibili (chiavi API)
+.env
+.bashrc.local
+
+# Cartelle IDE comuni (VS Code, ecc.)
+.vscode/
+.idea/
+
+# ==================================
+# FILE LIS TEMPORANEI (Opzionale)
+# ==================================
+
+# Se Tiago genera file di movimento temporanei o log:
+# *.temp

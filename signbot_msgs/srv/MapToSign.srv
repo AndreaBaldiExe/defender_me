@@ -1,0 +1,5 @@
+# Richiesta (Input)
+string lis_phrase
+---
+# Risposta (Output)
+bool success

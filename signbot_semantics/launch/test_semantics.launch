@@ -1,0 +1,17 @@
+<launch>
+
+    <rosparam file="$(find signbot_semantics)/config/lis_motions.yaml" command="load" />
+
+
+    <node name="llm_composer_node"
+          pkg="signbot_semantics"
+          type="llm_composer.py"
+          output="screen" />
+
+
+    <node name="sign_mapper_node"
+          pkg="signbot_semantics"
+          type="sign_mapper.py"
+          output="screen" />
+
+</launch>
