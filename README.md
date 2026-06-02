@@ -17,7 +17,7 @@
 
 ## Overview
 
-Hospitals are communication-dense, stressful places. For **Deaf and hard-of-hearing patients**, a waiting room that relies on spoken announcements and rapid verbal exchanges can be inaccessible — affecting not just information delivery but comfort, autonomy, and trust.
+Hospitals are communication-dense, stressful places. For **Deaf and hard-of-hearing patients**, a waiting room that relies on spoken announcements and rapid verbal exchanges can be inaccessible, affecting not just information delivery but comfort, autonomy, and trust.
 
 **Deafender** addresses this with a simulated **TIAGo** robot that communicates in **LIS (Lingua dei Segni Italiana)**. During the wait before an appointment, the robot:
 
