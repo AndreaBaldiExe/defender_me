@@ -5,7 +5,7 @@ Socially aware TIAGo assistance for Deaf patients in a hospital waiting room.
 A modular ROS system that recognizes a patient, retrieves their clinical context, composes a short phrase in Italian Sign Language (LIS) under strict constraints, and has a TIAGo robot physically sign it.
 
 Elective in AI: Human Robot Interaction (HRI) and Robot Benchmarking and Competitions (RBC).
-Authors: Andrea Baldi, Serena Trovalusci.
+> Authors: Andrea Baldi, Serena Trovalusci.
 
 ## Overview
 
