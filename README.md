@@ -452,6 +452,3 @@ Per the report: expand the LIS motion library and smooth sign-to-sign transition
 
 Key methods build on ArcFace face embeddings (Deng et al., CVPR 2019) and the LLaMA model family (Touvron et al., 2023), with design inspiration from socially assistive robotics and semantic-grounding frameworks (e.g. EMPOWER, KnowRob); see the report's references for the full list.
 
-## License & maintainers
-
-The `package.xml` manifests currently declare `license: TODO` with a placeholder maintainer — update these before any public release. This is an academic course project by **Andrea Baldi** and **Serena Trovalusci**; add the intended license and contact details here.
