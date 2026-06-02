@@ -1,4 +1,4 @@
-# Deafender 🤟 — SignBot
+# Deafender
 
 > **Socially-Aware TIAGo Assistance for Deaf Patients in a Hospital Waiting Room**
 > A modular ROS system that recognizes a patient, retrieves their clinical context, composes a short **Italian Sign Language (LIS)** phrase under strict constraints, and has a TIAGo robot physically sign it.
