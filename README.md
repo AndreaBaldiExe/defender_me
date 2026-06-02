@@ -11,7 +11,7 @@
 ![Status](https://img.shields.io/badge/status-academic%20prototype-yellow)
 
 *Elective in AI — Human-Robot Interaction (HRI) + Robot Benchmarking and Competitions (RBC)*
-Authors: **Andrea Baldi** · **Serena Trovalusci**
+> Authors: **Andrea Baldi** · **Serena Trovalusci**
 
 ---
 
