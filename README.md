@@ -45,42 +45,9 @@ This keeps the robot's behavior bounded and lets it degrade gracefully: an imper
 
 ## Architecture
 
-```mermaid
-flowchart TB
-    P([Patient])
-    FR["face_recognizer<br/>(external, orchestrator)"]
+![Architecture of the Deafender SignBot pipeline](architecture.jpg)
 
-    subgraph SEM["signbot_semantics (this repo)"]
-        direction LR
-        COMP["llm_composer<br/>service: /compose_lis_phrase"]
-        MAP["sign_mapper<br/>service: map_and_execute_sign"]
-    end
-
-    LLM{{"LLM backend<br/>Groq or Ollama"}}
-    EXEC["run_play_motion<br/>(external, moves TIAGo)"]
-    MOT[("/motions param<br/>vocabulary")]
-    SGN[("/sign param<br/>command string")]
-
-    P --> FR
-    FR -->|"1. compose request"| COMP
-    COMP <-->|"prompt and reply"| LLM
-    COMP -->|"2. LIS phrase back"| FR
-    FR -->|"3. validate request"| MAP
-    MOT -.->|"reads vocabulary"| COMP
-    MOT -.->|"reads vocabulary"| MAP
-    MAP -.->|"4. writes command"| SGN
-    SGN -.->|"reads command"| EXEC
-    EXEC -->|"gestures"| P
-
-    classDef repo fill:#E1F5EE,stroke:#0F6E56,color:#04342C;
-    classDef ext fill:#F1EFE8,stroke:#5F5E5A,color:#2C2C2A;
-    classDef param fill:#FAEEDA,stroke:#854F0B,color:#412402;
-    class COMP,MAP repo
-    class FR,EXEC,LLM ext
-    class MOT,SGN param
-```
-
-How to read it: solid arrows are service calls (request and response, numbered in the order they happen); dashed arrows are parameter reads and writes. Teal nodes are in this repository, gray nodes are external, amber nodes are the shared parameters.
+The diagram labels are in Italian: `esterno` means external, `servizio LLM` is the LLM service, `validatore` is the validator, `legge` is reads, and `scrive / legge` is writes / reads. The dashed box groups the package in this repository. Solid blue arrows are service calls (request then response); dashed amber lines are reads and writes on the shared parameters `/motions` and `/sign`.
 
 The flow: `face_recognizer` recognizes the patient and acts as the orchestrator. It calls `/compose_lis_phrase` (1), the composer asks the LLM under the constraint of the `/motions` vocabulary and returns the phrase (2), then `face_recognizer` calls `map_and_execute_sign` (3). The mapper validates the phrase against `/motions` and writes the final command to `/sign` (4). The external `run_play_motion` node is always watching `/sign`, reads the command, and moves the robot.
 
@@ -404,7 +371,3 @@ From the report: expand the LIS motion library and smooth the transitions betwee
 A. Baldi and S. Trovalusci. Deafender: Socially Aware TIAGo Assistance for Deaf Patients in a Hospital Waiting Room. Elective in AI report (HRI and RBC).
 
 Key methods build on ArcFace face embeddings (Deng et al., CVPR 2019) and the LLaMA model family (Touvron et al., 2023), with design inspiration from socially assistive robotics and semantic grounding frameworks (for example EMPOWER and KnowRob). See the report's references for the full list.
-
-## License and maintainers
-
-The `package.xml` manifests currently declare `license: TODO` with a placeholder maintainer. Update these before any public release. This is an academic course project by Andrea Baldi and Serena Trovalusci; add the intended license and contact details here.
