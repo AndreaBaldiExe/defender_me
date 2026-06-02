@@ -5,7 +5,7 @@ Socially aware TIAGo assistance for Deaf patients in a hospital waiting room.
 A modular ROS system that recognizes a patient, retrieves their clinical context, composes a short phrase in Italian Sign Language (LIS) under strict constraints, and has a TIAGo robot physically sign it.
 
 Elective in AI: Human Robot Interaction (HRI) and Robot Benchmarking and Competitions (RBC).
-> Authors: Andrea Baldi, Serena Trovalusci.
+Authors: Andrea Baldi, Serena Trovalusci.
 
 ## Overview
 
@@ -46,37 +46,45 @@ This keeps the robot's behavior bounded and lets it degrade gracefully: an imper
 ## Architecture
 
 ```mermaid
-flowchart LR
-    P["Person (Deaf patient)"]
+flowchart TB
+    P([Patient])
+    FR["face_recognizer<br/>(external, orchestrator)"]
 
-    subgraph EXT1["Perception (external)"]
-        FR["face_recognizer node<br/>InsightFace / ArcFace embeddings<br/>+ stability gate over N frames"]
+    subgraph SEM["signbot_semantics (this repo)"]
+        direction LR
+        COMP["llm_composer<br/>service: /compose_lis_phrase"]
+        MAP["sign_mapper<br/>service: map_and_execute_sign"]
     end
 
-    subgraph THIS["signbot_semantics (this repo)"]
-        COMP["llm_composer_node<br/>service: /compose_lis_phrase"]
-        MAP["sign_mapper_node<br/>service: map_and_execute_sign"]
-    end
-
-    LLM{{"LLM backend<br/>Groq cloud or Ollama local"}}
-    PARAM[("ROS Parameter Server<br/>/motions and /sign")]
-
-    subgraph EXT2["Execution (external)"]
-        EXEC["TIAGo motion executor<br/>reads /sign, runs play_motion / MoveIt"]
-    end
+    LLM{{"LLM backend<br/>Groq or Ollama"}}
+    EXEC["run_play_motion<br/>(external, moves TIAGo)"]
+    MOT[("/motions param<br/>vocabulary")]
+    SGN[("/sign param<br/>command string")]
 
     P --> FR
-    FR -- "ComposeLIS(is_known, patient_data_json)" --> COMP
-    COMP <-- "constrained prompt" --> LLM
-    COMP -- "lis_phrase: Ciao|Mario|Appuntamento" --> FR
-    FR -- "MapToSign(lis_phrase)" --> MAP
-    MAP -- "reads vocabulary" --> PARAM
-    MAP -- "sets /sign = phase execution2|..." --> PARAM
-    PARAM --> EXEC
-    EXEC --> P
+    FR -->|"1. compose request"| COMP
+    COMP <-->|"prompt and reply"| LLM
+    COMP -->|"2. LIS phrase back"| FR
+    FR -->|"3. validate request"| MAP
+    MOT -.->|"reads vocabulary"| COMP
+    MOT -.->|"reads vocabulary"| MAP
+    MAP -.->|"4. writes command"| SGN
+    SGN -.->|"reads command"| EXEC
+    EXEC -->|"gestures"| P
+
+    classDef repo fill:#E1F5EE,stroke:#0F6E56,color:#04342C;
+    classDef ext fill:#F1EFE8,stroke:#5F5E5A,color:#2C2C2A;
+    classDef param fill:#FAEEDA,stroke:#854F0B,color:#412402;
+    class COMP,MAP repo
+    class FR,EXEC,LLM ext
+    class MOT,SGN param
 ```
 
-The vocabulary at `/motions` is the single source of truth. It is loaded once from `lis_motions.yaml` onto the ROS Parameter Server at launch, and both nodes read it from there: the composer to constrain generation, the mapper to validate.
+How to read it: solid arrows are service calls (request and response, numbered in the order they happen); dashed arrows are parameter reads and writes. Teal nodes are in this repository, gray nodes are external, amber nodes are the shared parameters.
+
+The flow: `face_recognizer` recognizes the patient and acts as the orchestrator. It calls `/compose_lis_phrase` (1), the composer asks the LLM under the constraint of the `/motions` vocabulary and returns the phrase (2), then `face_recognizer` calls `map_and_execute_sign` (3). The mapper validates the phrase against `/motions` and writes the final command to `/sign` (4). The external `run_play_motion` node is always watching `/sign`, reads the command, and moves the robot.
+
+The vocabulary at `/motions` is the single source of truth: it is loaded once from `lis_motions.yaml` at launch, and both the composer and the mapper read it. The mapper does not move the robot itself; it only writes the symbolic command to `/sign`, and the executor turns that into joint motions.
 
 ## Repository layout
 
